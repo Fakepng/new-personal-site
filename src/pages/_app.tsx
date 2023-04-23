@@ -1,4 +1,5 @@
 import { NextIntlProvider, IntlError, IntlErrorCode } from "next-intl";
+import { SessionProvider } from "next-auth/react";
 
 import type { AppProps } from "next/app";
 
@@ -6,13 +7,15 @@ import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <NextIntlProvider
-      onError={onError}
-      getMessageFallback={getMessageFallback}
-      messages={pageProps.messages}
-    >
-      <Component {...pageProps} />
-    </NextIntlProvider>
+    <SessionProvider session={pageProps.session}>
+      <NextIntlProvider
+        onError={onError}
+        getMessageFallback={getMessageFallback}
+        messages={pageProps.messages}
+      >
+        <Component {...pageProps} />
+      </NextIntlProvider>
+    </SessionProvider>
   );
 }
 
@@ -36,7 +39,7 @@ function getMessageFallback({
   const path = [namespace, key].filter((part) => part != null).join(".");
 
   if (error.code === IntlErrorCode.MISSING_MESSAGE) {
-    return `${path} is not yet translated`;
+    return `${path} is not yet translated\n${path} ยังไม่ได้รับการแปล`;
   } else {
     return `${path} has an error`;
   }
