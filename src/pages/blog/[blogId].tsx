@@ -51,6 +51,26 @@ export async function getStaticProps({
     return { notFound: true };
   }
 
+  const blogLocale = THBlogsIds.includes(params.blogId) ? "th" : "en";
+
+  if (blogLocale !== locale) {
+    if (blogLocale === "th") {
+      return {
+        redirect: {
+          destination: `/blog/${encodeURI(params.blogId)}`,
+          permanent: false,
+        },
+      };
+    } else {
+      return {
+        redirect: {
+          destination: `/en/blog/${params.blogId}`,
+          permanent: false,
+        },
+      };
+    }
+  }
+
   const namespace = ["Blog"];
   const messages = await i18n({ locale, namespace });
 
