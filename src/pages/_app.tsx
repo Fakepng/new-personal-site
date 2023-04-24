@@ -23,7 +23,7 @@ function onError(error: IntlError) {
   if (error.code === IntlErrorCode.MISSING_MESSAGE) {
     console.error(error);
   } else {
-    // reportToErrorTracking(error);
+    // reportIntlError(error);
   }
 }
 

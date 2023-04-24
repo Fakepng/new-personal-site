@@ -1,5 +1,10 @@
 {
   "Index": {
-    "title": "Personal Website"
+    "title": "Personal Website",
+    "description": "A personal website for me, a software developer."
+  },
+  "Blog": {
+    "title": "Blog",
+    "description": "A collection of my thoughts and ideas."
   }
 }
